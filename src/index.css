@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+/* Tailwind CSS v4 custom at-rule. */
+/*noinspection CssUnknownAtRule*/
+/* stylelint-disable-next-line at-rule-no-unknown */
+@theme {
+  /* Brand */
+  --color-primary: #a47148;
+  --color-primary-dark: #6f4e37;
+  --color-primary-light: #d9bfa7;
+
+  /* Background */
+  --color-background: #f4ede3;
+  --color-background-dark: #3e2c23;
+
+  /* Text */
+  --color-text: #3e2c23;
+  --color-text-secondary: #6f4e37;
+
+  /* UI */
+  --color-border: #d9bfa7;
+  --color-accent: #a47148;
+}

@@ -4,14 +4,29 @@ import { motion } from "framer-motion";
 import CategoryCard from "./categoryCard";
 import { getCategories } from "../../services/categoriesService";
 
+const MOBILE_TABLET_LIMIT = 6;
+const DESKTOP_LIMIT = 8;
+
+const getEvenCategories = (categories, limit) => {
+  const limitedCategories = categories.slice(0, limit);
+
+  return limitedCategories.slice(0, limitedCategories.length - (limitedCategories.length % 2));
+};
+
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const mainCategories = categories.filter(
     (category) => category.parent_id === null,
   );
+
+  const mobileTabletCategories = getEvenCategories(
+    mainCategories,
+    MOBILE_TABLET_LIMIT,
+  );
+
+  const desktopCategories = mainCategories.slice(0, DESKTOP_LIMIT);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -20,8 +35,6 @@ export default function Categories() {
         setCategories(response);
       } catch (err) {
         setError(err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -46,33 +59,37 @@ export default function Categories() {
         </h2>
       </motion.div>
 
-      {loading && (
-        <p className="text-center text-sm text-neutral-500">
-          Cargando categorías...
-        </p>
-      )}
-
       {error && (
         <p className="text-center text-sm text-red-500">
           No fue posible cargar las categorías.
         </p>
       )}
 
-      {!loading && !error && (
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-          {mainCategories.map((category, index) => (
-            <div
-              key={category.slug}
-              className="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-1.2rem)]"
-            >
+      {!error && (
+        <>
+          {/* Mobile / Tablet */}
+          <div className="grid grid-cols-2 gap-4 lg:hidden">
+            {mobileTabletCategories.map((category) => (
               <CategoryCard
+                key={category.slug}
                 name={category.name}
                 image={category.image_url}
-                index={index}
               />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+
+          {/* Desktop */}
+          <div className="flex gap-6 overflow-x-auto lg:flex-nowrap">
+            {desktopCategories.map((category) => (
+              <div key={category.slug} className="w-1/5 shrink-0">
+                <CategoryCard
+                  name={category.name}
+                  image={category.image_url}
+                />
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </section>
   );

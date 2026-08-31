@@ -11,6 +11,10 @@ async function getCatalog(options = {}) {
     params.append("limit", options.limit);
   }
 
+  if (options.page) {
+    params.append("page", options.page);
+  }
+
   if (options.offset) {
     params.append("offset", options.offset);
   }
@@ -24,4 +28,4 @@ async function getCatalog(options = {}) {
   return fetchData(`/products/catalog${query ? `?${query}` : ""}`);
 }
 
-export { getCatalog }
+export { getCatalog };

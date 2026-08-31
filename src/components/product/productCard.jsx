@@ -12,6 +12,11 @@ const ProductCard = ({ product }) => {
                     "https://placehold.co/600x600?text=Sin+Imagen"
                 }
                 alt={product.name}
+                onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src =
+                        "https://placehold.co/600x600?text=Sin+Imagen";
+                }}
                 className="aspect-square w-full object-cover"
             />
 

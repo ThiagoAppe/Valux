@@ -26,8 +26,8 @@ hover:shadow-lg
 
 const Navbar = () => {
   return (
-    <nav className="w-full flex">
-      <div className="mx-auto flex max-w-screen-xl p-4 gap-2">
+    <nav className="w-full flex mb-2">
+      <div className="mx-auto flex max-w-7xl p-2 gap-2">
         <Link to="/" className={BubbleIcon}>
           <House size={22} className="shrink-0" />
           <span className="ml-3 whitespace-nowrap opacity-0 max-w-0 overflow-hidden transition-all duration-600 group-hover:max-w-24 group-hover:opacity-100">

@@ -1,15 +1,6 @@
-
-import { motion } from "framer-motion";
-
-export default function CategoryCard({ name, image, index }) {
+export default function CategoryCard({ name, image }) {
   return (
-    <motion.div
-      className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl shadow-md transition-shadow duration-500 hover:shadow-xl"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-    >
+    <div className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl shadow-md transition-shadow duration-500 hover:shadow-xl">
       <img
         src={image}
         alt={name}
@@ -23,6 +14,6 @@ export default function CategoryCard({ name, image, index }) {
           {name}
         </h3>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -10,6 +10,7 @@ const CatalogMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPage = Number(searchParams.get("page")) || 1;
+  const category = searchParams.get("category") || undefined;
 
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -21,6 +22,7 @@ const CatalogMain = () => {
 
       try {
         const data = await getCatalog({
+          category,
           page: currentPage,
           limit: PAGE_SIZE,
         });
@@ -33,10 +35,13 @@ const CatalogMain = () => {
     }
 
     loadProducts();
-  }, [currentPage]);
+  }, [category, currentPage]);
 
   const changePage = (page) => {
-    setSearchParams({ page: page.toString() });
+    const nextSearchParams = new URLSearchParams(searchParams);
+
+    nextSearchParams.set("page", page.toString());
+    setSearchParams(nextSearchParams);
   };
 
   if (loading) {
